@@ -1,0 +1,4 @@
+echo "data/*.db" > .gitignore
+echo "data/*.csv" >> .gitignore
+git add .gitignore
+git commit -m "chore: add gitignore"
