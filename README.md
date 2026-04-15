@@ -8,13 +8,13 @@ CSV (Open Data Maroc)
 ↓ Extract
 pandas (nettoyage + enrichissement)
 ↓ Transform
-SQLite (modèle étoile)
+PostgreSQL (modèle étoile)
 ↓ Load
-Requêtes analytiques SQL
+Requêtes analytiques SQL + Window Functions
 
 ## ⭐ Modèle étoile
-    dim_date
-       |
+      dim_date
+         |
 dim_region — fait_accident — dim_accident
 
 | Table | Description |
@@ -28,19 +28,20 @@ dim_region — fait_accident — dim_accident
 sinistres_ma_pipeline/
 ├── extract/   → génération et lecture des données
 ├── transform/ → nettoyage et enrichissement pandas
-├── load/      → chargement SQLite via SQLAlchemy
+├── load/      → chargement SQLite + PostgreSQL
 ├── sql/       → modèle étoile + requêtes analytiques
 └── data/      → fichiers CSV et DB (gitignored)
 
 ## 🚀 Lancer le pipeline
 
 ```bash
-pip install pandas sqlalchemy
+pip install pandas sqlalchemy pg8000
 python extract/generate_data.py
 python transform/transform.py
 python load/load.py
 python sql/modele_etoile.py
 python sql/requetes_analytiques.py
+python sql/window_functions.py
 ```
 
 ## 🔍 Requêtes analytiques
@@ -51,6 +52,12 @@ python sql/requetes_analytiques.py
 - Comparaison Urbain vs Rural
 - Mois les plus accidentogènes
 
+## 🔥 Window Functions SQL
+
+- `RANK()` — classement des régions par sinistralité
+- `SUM() OVER` — cumul mensuel des victimes par année
+- `AVG() OVER ROWS` — moyenne mobile 3 mois des accidents
+
 ## 🛠️ Stack technique
 
-`Python` `pandas` `SQLAlchemy` `SQLite` `SQL` `Git`
+`Python` `pandas` `SQLAlchemy` `PostgreSQL` `SQLite` `SQL` `Git`
